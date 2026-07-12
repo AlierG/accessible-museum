@@ -9,11 +9,9 @@ services:
     staticPublishPath: .
     # 纯静态，无需构建步骤
     buildCommand: ""
-    # 单页/多页静态站点：找不到文件时的兜底（这里直接回到首页）
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    # 不要用 catch-all rewrite！那会让 data.js/game.js/style.css 都被替换成
+    # index.html 的内容，导致页面只剩空地图。静态站会自动按文件名返回文件，
+    # 无需任何 route 规则。
     headers:
       - path: /*
         name: Cache-Control
