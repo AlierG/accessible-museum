@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>有障碍博物馆</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===================== 顶部条 ===================== -->
+<header id="topbar">
+  <div class="brand">有障碍博物馆 <span class="sub">Accessible Museum · 桌游模拟器</span></div>
+  <div class="top-actions">
+    <span id="netStatus" class="net-chip local">本地模式</span>
+    <button id="btnRoom"   class="btn">联机房间</button>
+    <button id="btnMute"   class="btn" title="开关音效">🔊</button>
+    <button id="btnRules"  class="btn">游戏说明</button>
+    <button id="btnConfig" class="btn">配置 / 卡牌</button>
+    <button id="btnNewGame" class="btn primary">开始新游戏</button>
+  </div>
+</header>
+
+<!-- ===================== 主区域 ===================== -->
+<main id="board-wrap">
+
+  <!-- 左上角：进度条 + 顺位 -->
+  <section id="progress-panel" class="panel">
+    <h3>阶段进度</h3>
+    <div id="phaseTrack" class="phase-track"><!-- js --></div>
+    <h3 class="mt">行动顺位 <span class="hint" data-tip="每阶段按体力从高到低排顺位；体力相同时沿用上一阶段顺序。每阶段每人行动两次。">?</span></h3>
+    <ol id="turnOrder" class="turn-order"><!-- js --></ol>
+    <div id="phaseInfo" class="phase-info"></div>
+  </section>
+
+  <!-- 中央主版图 -->
+  <section id="map-panel">
+    <div id="mapStage">
+      <img id="mapImg" src="assets/map.jpg" alt="博物馆平面图" />
+      <div id="hotspots"><!-- js: 房间热区 + token --></div>
+    </div>
+  </section>
+
+  <!-- 右侧：当前玩家 + 四人属性/任务 -->
+  <aside id="side-panel" class="panel">
+    <div id="currentTurn" class="current-turn"></div>
+    <div id="actionArea" class="action-area"></div>
+    <h3 class="mt">玩家状态</h3>
+    <div id="playerCards"><!-- js --></div>
+  </aside>
+
+  <!-- 版图下方：牌堆 -->
+  <section id="deck-panel" class="panel">
+    <h3>牌堆 <span class="hint" data-tip="移动到对应房间后自动抽卡。这里展示各牌堆剩余数量与最近抽到的卡。">?</span></h3>
+    <div id="decks" class="decks"><!-- js --></div>
+  </section>
+
+</main>
+
+<!-- ===================== 日志 ===================== -->
+<section id="log-panel" class="panel">
+  <h3>游戏记录</h3>
+  <div id="log" class="log"></div>
+</section>
+
+<!-- ===================== 弹窗容器 ===================== -->
+<div id="modalRoot"></div>
+
+<!-- 卡牌抽取动画/展示层 -->
+<div id="cardOverlay" class="card-overlay hidden">
+  <div id="cardOverlayInner"></div>
+  <button id="cardOverlayClose" class="btn primary">确定</button>
+</div>
+
+<div id="tooltip" class="tooltip hidden"></div>
+
+<!-- PeerJS：联机用。CDN 加载失败会自动降级为本地模式。 -->
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="data.js"></script>
+<script src="net.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Render 蓝图（可选）：把本仓库作为「静态网站」发布。
+# 用法：在 Render 点 New → Blueprint，选择这个仓库即可自动读取本文件。
+# 也可以完全不用这个文件，直接在 Render 网页上手动创建 Static Site。
+services:
+  - type: web
+    name: accessible-museum
+    runtime: static
+    # 站点根目录就是仓库根目录（index.html 在根目录）
+    staticPublishPath: .
+    # 纯静态，无需构建步骤
+    buildCommand: ""
+    # 单页/多页静态站点：找不到文件时的兜底（这里直接回到首页）
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: "public, max-age=300"
